@@ -1,3 +1,30 @@
+# 🚀 Live Demo
+
+🌐 **Live Application:** https://edu-pulse-school-hackathon.vercel.app/login
+
+👤 Demo Credentials
+
+Student
+Email: rahul.b@edupulse.edu
+
+Password: password
+
+Teacher
+Email: david.miller@teacher.edupulse.edu
+
+Password: password
+
+Parent
+Email: sarah.b@parent.edupulse.edu
+
+Password: password
+
+Admin
+Email: admin@edupulse.edu
+
+Password: password
+
+---
 # 🎓 EduPulse – AI-Powered Holistic Student Development & School Collaboration Platform
 
 > **Transforming education from reactive to proactive through Artificial Intelligence.**
