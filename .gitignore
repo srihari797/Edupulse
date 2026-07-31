@@ -1,0 +1,207 @@
+# ============================================================
+# EduPulse - Git Ignore Configuration
+# Stack: FastAPI (Python) + Next.js (TypeScript)
+# ============================================================
+
+
+# ============================================================
+# 🔒 ENVIRONMENT & SECRET FILES (CRITICAL - NEVER COMMIT!)
+# ============================================================
+.env
+.env.*
+!.env.example
+*.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+
+
+# ============================================================
+# 🐍 PYTHON / BACKEND
+# ============================================================
+
+# Bytecode & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+.env/
+Pipfile.lock
+
+# Distribution / Packaging
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+.eggs/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Linting
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# Type Checking
+.pyright/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# pyinstaller
+*.spec
+
+
+# ============================================================
+# ⚛️ NODE.JS / NEXT.JS / FRONTEND
+# ============================================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Build Output
+.next/
+out/
+build/
+dist/
+
+# TypeScript Cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Debug Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# Vercel
+.vercel
+
+# Testing
+/coverage
+
+
+# ============================================================
+# 🖥️ IDE & EDITOR FILES
+# ============================================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+
+# ============================================================
+# 💻 OPERATING SYSTEM FILES
+# ============================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+
+# ============================================================
+# 📝 PROJECT SCRATCH & INTERNAL NOTES
+# ============================================================
+docs/
+test reports/
+*.txt
+admin_part_real-time_integration_fixes.md
+
+# Agent/AI tool config files (not relevant to other developers)
+AGENTS.md
+CLAUDE.md
+.gemini/
+
+# Markdown files (keep only README.md at root if needed)
+# Uncomment below if you want to commit README.md files:
+# !README.md
+*.md
+!README.md
+
+
+# ============================================================
+# 📦 MISC
+# ============================================================
+
+# Certificates & Keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.orig
+
+# Database files (local SQLite, etc.)
+*.db
+*.sqlite
+*.sqlite3
+
+# Package files
+*.zip
+*.tar.gz
+*.rar
