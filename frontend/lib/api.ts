@@ -101,7 +101,7 @@ export async function apiRequest<T>(
     throw new ApiError(
       0,
       "NetworkError",
-      "Could not connect to EduPulse backend (http://localhost:8000). Please ensure the FastAPI backend is running."
+      "Could not connect to EduPulse backend. Please try again or contact support."
     );
   }
 
