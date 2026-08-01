@@ -764,18 +764,19 @@ class RealStudentRepository(StudentRepository):
         recs = result.scalars().all()
 
         if recs:
-            return [
-                {
+            result_list = []
+            for r in recs:
+                c_dict = r.content if isinstance(r.content, dict) else {}
+                result_list.append({
                     "id": r.id,
-                    "title": r.title,
-                    "description": r.recommendation,
-                    "opportunity_type": r.category or "Scholarship",
-                    "organization": "National Foundation",
-                    "deadline": "2026-09-30",
-                    "recommended_reason": f"Matches your strong progress ({int((r.confidence_score or 0.9) * 100)}% mastery)."
-                }
-                for r in recs
-            ]
+                    "title": getattr(r, "title", None) or c_dict.get("title") or f"Academic Opportunity #{r.id}",
+                    "description": getattr(r, "description", None) or c_dict.get("description") or c_dict.get("recommendation") or "Recommended opportunity matched for your profile.",
+                    "opportunity_type": getattr(r, "opportunity_type", None) or c_dict.get("opportunity_type") or c_dict.get("category") or "Scholarship",
+                    "organization": c_dict.get("organization") or "National Foundation",
+                    "deadline": str(c_dict.get("deadline") or "2026-09-30"),
+                    "recommended_reason": c_dict.get("recommended_reason") or "Matched to your strong academic performance and learning progress."
+                })
+            return result_list
 
         return [
             {
