@@ -68,6 +68,7 @@ const NAV_CONFIG: Record<RoleId, NavSection[]> = {
         { label: "Dashboard", href: "/student/dashboard", icon: LayoutDashboard, shortcut: "G D" },
         { label: "Growth Passport", href: "/student/growth-passport", icon: Trophy, shortcut: "G G" },
         { label: "Learning Health", href: "/student/learning-health", icon: HeartPulse, shortcut: "G H" },
+        { label: "AI Attendance", href: "/student/attendance", icon: ShieldCheck, shortcut: "G V" },
         { label: "Workload", href: "/student/workload", icon: Activity, shortcut: "G W" },
       ],
     },

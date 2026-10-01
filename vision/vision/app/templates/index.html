@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Attendance System</title>
+
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="controls">
+
+        <input
+    type="text"
+    id="username"
+    placeholder="Enter Name">
+
+<button onclick="startCapture()">
+    Capture Dataset
+</button>
+
+<button onclick="startRecognition()">
+    Start Recognition
+</button>
+    
+    </div>
+
+    <div class="container">
+
+        
+
+        <video id="video" autoplay playsinline></video>
+
+        <canvas id="canvas" style="display:none;"></canvas>
+
+        <div class="result">
+            <h2>Name:</h2>
+            <p id="name">Waiting...</p>
+
+            <h2>Confidence:</h2>
+            <p id="confidence">--</p>
+        </div>
+
+    </div>
+
+<script src="static/script.js"></script>
+
+</body>
+</html>

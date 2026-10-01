@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
-# Format DATABASE_URL for psycopg3 async driver
+# Format DATABASE_URL for async drivers
 db_url = settings.DATABASE_URL
 if db_url:
     if db_url.startswith("postgres://"):
@@ -10,8 +10,8 @@ if db_url:
     elif db_url.startswith("postgresql://"):
         db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
 else:
-    # Use a placeholder database URL to prevent startup crashes when URL is not configured (e.g. initial setup)
-    db_url = "postgresql+psycopg://postgres:123456@localhost:5432/edupulse"
+    # Use SQLite async driver fallback
+    db_url = "sqlite+aiosqlite:///./edupulse.db"
 
 # Async engine creation
 async_engine = create_async_engine(

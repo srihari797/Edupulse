@@ -43,7 +43,7 @@ export const ROLE_DASHBOARD_PATHS: Record<RoleId, string> = {
 
 /** API base URL — reads from env, never hardcode */
 export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://edupulse-school-hackathon.onrender.com/api/v1";
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
 
 /** Token storage key in localStorage */
 export const AUTH_TOKEN_KEY = "edupulse_token";

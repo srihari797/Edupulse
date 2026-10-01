@@ -1,436 +1,182 @@
-# 🚀 Live Demo
+# 🚀 EduPulse — AI-Powered Holistic Student Development & Vision CV Attendance System
 
-🌐 **Live Application:** https://edu-pulse-school-hackathon.vercel.app/login
+![EduPulse Banner](https://img.shields.io/badge/EduPulse-v2.0-5e6ad2?style=for-the-badge&logo=react)
+![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=for-the-badge&logo=nextdotjs)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.140-009688?style=for-the-badge&logo=fastapi)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?style=for-the-badge&logo=pytorch)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.13-5C3EE8?style=for-the-badge&logo=opencv)
+![VectorDB](https://img.shields.io/badge/Vector_DB-Cosine_Search-008080?style=for-the-badge)
 
-👤 Demo Credentials
-
-Student
-Email: rahul.b@edupulse.edu
-
-Password: password
-
-Teacher
-Email: david.miller@teacher.edupulse.edu
-
-Password: password
-
-Parent
-Email: sarah.b@parent.edupulse.edu
-
-Password: password
-
-Admin
-Email: admin@edupulse.edu
-
-Password: password
-
----
-# 🎓 EduPulse – AI-Powered Holistic Student Development & School Collaboration Platform
-
-> **Transforming education from reactive to proactive through Artificial Intelligence.**
-
-EduPulse is an AI-powered student development platform that helps schools proactively monitor, support, and enhance every student's academic, personal, and extracurricular growth. Instead of evaluating students solely by examination marks, EduPulse combines Artificial Intelligence with holistic analytics to provide actionable insights for students, teachers, parents, and school administrators.
+**EduPulse** is an end-to-end AI-powered educational ecosystem designed to monitor student learning health, track workload stress, provide personalized AI study recommendations, and automate attendance verification using computer vision facial embeddings and a custom Vector Database.
 
 ---
 
-# 🚀 Vision
+## ✨ Key Features
 
-Traditional school systems often react only after problems become visible—poor marks, absenteeism, missed assignments, or declining engagement.
+### 📸 1. AI Vision CV Attendance & Vector DB Engine
+- **Real-Time Webcam Face Recognition**: Captures live video stream frames and extracts normalized facial feature vectors.
+- **10-Snapshot Multi-Angle Registration**: Collects 10 guided snapshots (straight, left, right, tilt up/down) to generate robust facial profile centroids and multi-vector sample clusters.
+- **Dedicated Vector Database (`VectorDB`)**: Performs fast Cosine Distance similarity search ($\max_{v \in \text{samples}} S_c(q, v)$) across all stored face vectors.
+- **Strict Anti-Proxy Account Verification**: Binds face vector matches to active logged-in accounts. Rejects unauthorized proxy attendance scans automatically.
+- **CLAHE Lighting Invariance**: Pre-processes video frames with Contrast Limited Adaptive Histogram Equalization for reliable accuracy under any lighting condition.
 
-EduPulse changes this approach by leveraging Artificial Intelligence to identify risks early, optimize academic workload, personalize learning, and continuously monitor holistic student development before challenges become critical.
+### 📊 2. Student Learning Health & Growth Dashboard
+- **Learning Health Index (LHI)**: Evaluates concept mastery, assignment completions, and subject weakness detection.
+- **Workload & Mental Pressure Radar**: Monitors active assignment density and stress progression.
+- **5-Axis Growth Radar Chart**: Displays holistic growth across Academics, Extracurriculars, Sports, Clubs, and Competitions.
+- **AI Study Plan Recommendations**: Tailored study windows and disengagement alerts.
 
----
-
-# 🤖 AI at the Core
-
-EduPulse is designed around a centralized **AI Intelligence Platform** where every important academic event—assignments, attendance, assessments, achievements, participation, and learning activities—triggers AI analysis to generate personalized insights.
-
-### AI Capabilities
-
-- 🧠 Predictive Analytics
-- 📊 Personalized Learning Insights
-- 📈 Student Progress Intelligence
-- ⚠️ Early Risk Detection
-- 🎯 Recommendation Engine
-- 📅 Intelligent Study Planning
-- 📝 AI-powered Learning Assistance
-- 💬 AI Parent Coach
-- 🎖️ Recognition & Growth Analytics
+### 👨‍🏫 3. Teacher & Parent Portals
+- **Teacher Dashboard**: Student roster risk alerts, class test submissions, assignment grading, and doubt resolution.
+- **Parent Portal**: Real-time bus tracking, AI parenting coach, and academic progress updates.
 
 ---
 
-# 🌟 Flagship AI Features
+## 🏗️ Architecture & Tech Stack
 
-## 🧠 AI Workload Intelligence System
-
-One of EduPulse's flagship innovations.
-
-### Features
-
-- Predicts student workload before assignments are published
-- Detects assignment overload across multiple subjects
-- Suggests optimized deadlines for teachers
-- Prevents academic burnout
-- Helps balance workload fairly across classrooms
-- Provides workload analytics for students, teachers, and parents
-
----
-
-## 📈 Holistic Student Growth Passport
-
-A continuously evolving digital profile that tracks the complete journey of every student.
-
-### Tracks
-
-- Academic Progress
-- Attendance
-- Discipline
-- Leadership
-- Communication
-- Creativity
-- Sports
-- Arts
-- Extracurricular Activities
-- Certifications
-- Achievements
-- Wellness Indicators
-- Personal Growth
-
-Moving beyond marks to measure holistic development.
-
----
-
-## 📚 Learning Health Index
-
-Measures **how well students understand concepts**, not just how well they score in examinations.
-
-### AI analyzes
-
-- Concept Mastery
-- Quiz Performance
-- Assignment Performance
-- Learning Trends
-- Weak Topics
-- Submission Consistency
-- Assessment Results
-- Subject-wise Progress
-
-Teachers receive actionable insights for early intervention.
-
----
-
-## 🚨 Invisible Student Radar + AI Time Machine
-
-Uses AI to identify students who may silently be struggling.
-
-### AI monitors
-
-- Attendance trends
-- Assignment completion
-- Academic performance
-- Classroom participation
-- Learning consistency
-- Wellness indicators
-
-### AI provides
-
-- Early risk detection
-- Student engagement score
-- Historical decline timeline
-- Suggested intervention points
-- Personalized support recommendations
-
----
-
-# 👥 User Roles
-
-## 👨‍🎓 Student
-
-### Dashboard Features
-
-- Personalized Dashboard
-- AI Study Planner
-- Learning Health Index
-- Workload Analytics
-- Timetable
-- Assignments
-- Academic Resources
-- Anonymous Doubt Portal
-- Opportunity Recommendations
-- Achievement Tracking
-
----
-
-## 👩‍🏫 Teacher
-
-### Dashboard Features
-
-- Classroom Health Dashboard
-- Assignment Management
-- Student Performance Analytics
-- Learning Resource Upload
-- Timetable
-- Student Doubt Management
-- Personalized Student Insights
-- Learning DNA Analytics
-- AI Workload Suggestions
-
----
-
-## 👨‍👩‍👧 Parent
-
-### Dashboard Features
-
-- Child Growth Dashboard
-- Academic Progress
-- Attendance Tracking
-- Wellness Overview
-- AI Parent Coach
-- School Bus Tracking
-- Parent–Teacher Shared Goals
-- Personalized AI Recommendations
-
----
-
-## 🏫 Administrator
-
-### Dashboard Features
-
-- Student Management
-- Teacher Management
-- Parent Management
-- Class Management
-- Subject Allocation
-- Timetable Management
-- School Analytics
-- Notifications
-- Platform Administration
-
----
-
-# 💡 AI-Powered Features
-
-## 🧠 Student Intelligence
-
-- AI Study Priority Planner
-- AI Exam Preparation Planner
-- Concept-wise Weakness Analyzer
-- Opportunity Recommendation Engine
-- Anonymous AI Doubts
-- Personalized Learning Assistance
-
-## 👩‍🏫 Teacher Intelligence
-
-- Classroom Health Dashboard
-- Learning DNA
-- Student Risk Detection
-- Parent–Teacher Shared Goals
-- AI Workload Optimization
-
-## 👨‍👩‍👧 Parent Intelligence
-
-- AI Parent Coach
-- Growth Analytics
-- Student Progress Insights
-- Personalized Parenting Suggestions
-
-## 🌍 Platform Intelligence
-
-- AI Workload Prediction
-- Holistic Growth Passport
-- Learning Health Analytics
-- Invisible Student Radar
-- Recommendation Engine
-- Recognition Engine
-- Predictive Insights
-
----
-
-# 🛠️ Technology Stack
-
-## Frontend
-
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-
-## Backend
-
-- FastAPI
-- SQLAlchemy
-- Pydantic
-- JWT Authentication
-
-## Database & Storage
-
-- PostgreSQL
-- Supabase
-- Supabase Storage
-
-## Artificial Intelligence
-
-- Google Gemini
-- Groq API (Configurable)
-- AI Prompt Engineering
-- Context-based AI Processing
-- AI Recommendation Engine
-
----
-
-# 🏗️ AI Architecture
-
-```text
-Students
-Teachers
-Parents
-Administrators
-        │
-        ▼
-   Next.js Frontend
-        │
- REST API + JWT
-        │
-        ▼
- FastAPI Backend
-        │
-        ▼
- AI Intelligence Orchestrator
-        │
- ┌───────────────────────────────┐
- │ AI Workload Intelligence      │
- │ Learning Health Engine        │
- │ Growth Passport Engine        │
- │ Student Radar Engine          │
- │ Recommendation Engine         │
- │ Parent AI Coach               │
- │ Learning DNA                  │
- │ Recognition Engine            │
- └───────────────────────────────┘
-        │
-        ▼
-PostgreSQL + Supabase Storage
+```
+                              ┌────────────────────────┐
+                              │  Next.js 16 Frontend   │
+                              │   (localhost:3000)     │
+                              └───────────┬────────────┘
+                                          │
+                    ┌─────────────────────┴─────────────────────┐
+                    ▼                                           ▼
+      ┌───────────────────────────┐               ┌───────────────────────────┐
+      │   EduPulse Backend API    │               │  Vision CV & Vector DB    │
+      │   FastAPI (localhost:8000)│               │  FastAPI (localhost:8001) │
+      └─────────────┬─────────────┘               └─────────────┬─────────────┘
+                    │                                           │
+                    ▼                                           ▼
+      ┌───────────────────────────┐               ┌───────────────────────────┐
+      │  SQLite / ADSA Data Engine│               │   VectorDB & SQLite Logs  │
+      └───────────────────────────┘               └───────────────────────────┘
 ```
 
+| Component | Stack |
+|---|---|
+| **Frontend UI** | Next.js 16 (Turbopack, App Router), React 19, Tailwind CSS, Lucide Icons, Recharts |
+| **Backend API** | Python 3.10, FastAPI, Pydantic v2, SQLAlchemy, JWT Security |
+| **Vision & AI Engine** | PyTorch 2.5, OpenCV 4.13 (CLAHE, 4x4 Spatial Grid Extractors), InsightFace ArcFace |
+| **Vector Database** | Custom `VectorDB` Engine with Cosine Distance Nearest-Neighbor Search |
+
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```text
 EduPulse/
-
-├── backend/
+├── frontend/                   # Next.js 16 Web Frontend Application
+│   ├── app/                    # App Router Pages ((dashboard), student/attendance, etc.)
+│   ├── components/             # Reusable UI & Layout Components (Sidebar, Header, KPI Cards)
+│   └── lib/                    # API Clients & frozen constants
+├── backend/                    # FastAPI Main REST API Server
 │   ├── app/
-│   ├── auth/
-│   ├── core/
-│   ├── models/
-│   ├── modules/
-│   ├── services/
-│   └── ai/
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── hooks/
-│   ├── lib/
-│   ├── services/
-│   └── types/
-│
-├── docs/
-└── README.md
+│   │   ├── auth/               # JWT Auth & Mock Database Resolvers
+│   │   ├── core/               # Database Engine & Security Config
+│   │   └── modules/            # Student, Teacher, Parent, AI modules
+│   └── requirements.txt        # Python Backend Dependencies
+├── vision/                     # Standalone Computer Vision & Vector Database Service
+│   ├── vision/
+│   │   └── app/
+│   │       ├── ai/             # FaceService & Spatial Grid Feature Extractor
+│   │       ├── database/       # VectorDB & SQLite Attendance Logger
+│   │       └── main.py         # Vision FastAPI Entrypoint Server
+│   └── vector_store/           # Persistent JSON & SQLite Vector Storage
+└── README.md                   # Project Documentation
 ```
 
 ---
 
-# 🔐 Security
+## 🚀 Quick Start Guide
 
-EduPulse follows secure development practices.
-
-- JWT Authentication
-- Role-Based Access Control (RBAC)
-- Secure REST APIs
-- Protected Backend Routes
-- Environment Variable Configuration
-- Input Validation
-- Database Validation
-- Secure Password Hashing
+### Prerequisites
+- **Python 3.10+**
+- **Node.js 18+ & npm**
 
 ---
 
-# 🎯 Project Objectives
+### Step 1: Install Dependencies
 
-- Shift education from reactive to proactive
-- Reduce student stress and burnout
-- Support teachers with AI-assisted insights
-- Strengthen parent-school collaboration
-- Encourage holistic student development
-- Enable data-driven educational decisions
-- Personalize learning for every student
-- Detect risks before academic decline
+#### 1. Backend & Vision Dependencies
+```bash
+pip install fastapi uvicorn torchvision torch opencv-python numpy aiosqlite python-jose passlib pillow
+```
 
----
-
-# 📊 Core Modules
-
-### Platform
-
-- Authentication
-- Notifications
-- Role Management
-
-### Academic
-
-- Student Management
-- Teacher Management
-- Parent Management
-- Assignment Management
-- Timetable
-- Learning Resources
-
-### AI Intelligence
-
-- AI Workload Intelligence System
-- Holistic Student Growth Passport
-- Learning Health Index
-- Invisible Student Radar
-- AI Study Planner
-- AI Parent Coach
-- Learning DNA
-- Recommendation Engine
+#### 2. Frontend Dependencies
+```bash
+cd frontend
+npm install
+cd ..
+```
 
 ---
 
-# 🌍 Why EduPulse?
+### Step 2: Configure Environment Files
 
-Unlike traditional School ERP systems that simply manage administrative tasks, EduPulse acts as an **AI-powered educational intelligence platform**.
+Create `frontend/.env.local`:
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_VISION_API_BASE_URL=http://localhost:8001
+```
 
-It empowers schools to:
-
-- Detect learning issues early
-- Prevent student burnout
-- Personalize education
-- Support teachers with AI
-- Strengthen parent collaboration
-- Recognize holistic student achievements
-- Build healthier learning environments
-
----
-
-# 🤝 Contributors
-
-Developed as part of the **PaperBuddy Smart School FinTech Innovation Hackathon**.
-
-Contributions, suggestions, and improvements are always welcome.
+Create `backend/.env`:
+```env
+APP_NAME=EduPulse
+APP_ENV=development
+DEBUG=true
+SECRET_KEY=edupulse-super-secret-jwt-key-2026-hackathon
+DATA_SOURCE=mock
+USE_MOCK=true
+DATABASE_URL=sqlite+aiosqlite:///./edupulse.db
+```
 
 ---
 
-# 📜 License
+### Step 3: Launch Services
 
-This project is intended for educational, research, and innovation purposes.
+Run the following 3 commands in separate terminal sessions:
+
+#### Terminal 1: Vision CV Attendance & Vector DB Server
+```bash
+python -m uvicorn vision.app.main:app --port 8001 --host 0.0.0.0
+```
+
+#### Terminal 2: EduPulse Backend API Server
+```bash
+python -m uvicorn app.main:app --port 8000 --host 0.0.0.0
+```
+
+#### Terminal 3: Next.js Frontend Application
+```bash
+cd frontend
+npm run dev
+```
 
 ---
 
-# ⭐ EduPulse
+## 🔑 Demo Access Credentials
 
-> **Empowering schools with Artificial Intelligence to create healthier learning environments, proactive interventions, personalized education, and holistic student success.**
+All accounts use password: **`password`**
+
+| Role | Email Address | Password |
+|---|---|---|
+| **Student** | `rahul.b@edupulse.edu` | `password` |
+| **Demo Student** | `demo_stu@gmail.com` | `password` |
+| **Teacher** | `david.miller@teacher.edupulse.edu` | `password` |
+| **Parent** | `sarah.b@parent.edupulse.edu` | `password` |
+| **Admin** | `admin@edupulse.edu` | `password` |
+
+---
+
+## 🌐 Application URLs
+
+- 📱 **Web Application**: [http://localhost:3000](http://localhost:3000)
+- 📸 **AI Attendance Page**: [http://localhost:3000/student/attendance](http://localhost:3000/student/attendance)
+- ⚙️ **Backend REST API**: [http://localhost:8000](http://localhost:8000)
+- 👁️ **Vision CV API**: [http://localhost:8001](http://localhost:8001)
+
+---
+
+## 📜 License
+Developed for Hackathon 2026. All rights reserved.
