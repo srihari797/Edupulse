@@ -157,6 +157,8 @@ $RECYCLE.BIN/
 # 📝 PROJECT SCRATCH & INTERNAL NOTES
 # ============================================================
 docs/
+!docs/images/
+!docs/images/*
 test reports/
 *.txt
 admin_part_real-time_integration_fixes.md

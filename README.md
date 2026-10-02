@@ -11,54 +11,84 @@
 
 ---
 
-## ✨ Key Features
+## 📸 Integrated AI Attendance System with Camera & Vector DB
 
-### 📸 1. AI Vision CV Attendance & Vector DB Engine
-- **Real-Time Webcam Face Recognition**: Captures live video stream frames and extracts normalized facial feature vectors.
-- **10-Snapshot Multi-Angle Registration**: Collects 10 guided snapshots (straight, left, right, tilt up/down) to generate robust facial profile centroids and multi-vector sample clusters.
-- **Dedicated Vector Database (`VectorDB`)**: Performs fast Cosine Distance similarity search ($\max_{v \in \text{samples}} S_c(q, v)$) across all stored face vectors.
-- **Strict Anti-Proxy Account Verification**: Binds face vector matches to active logged-in accounts. Rejects unauthorized proxy attendance scans automatically.
-- **CLAHE Lighting Invariance**: Pre-processes video frames with Contrast Limited Adaptive Histogram Equalization for reliable accuracy under any lighting condition.
+EduPulse features a state-of-the-art **Computer Vision AI Attendance Engine** integrated directly into the Student Dashboard. Using live camera stream scanning, normalized vector embeddings, and real-time similarity search, it automates attendance verification while preventing proxy attendance.
 
-### 📊 2. Student Learning Health & Growth Dashboard
-- **Learning Health Index (LHI)**: Evaluates concept mastery, assignment completions, and subject weakness detection.
-- **Workload & Mental Pressure Radar**: Monitors active assignment density and stress progression.
-- **5-Axis Growth Radar Chart**: Displays holistic growth across Academics, Extracurriculars, Sports, Clubs, and Competitions.
-- **AI Study Plan Recommendations**: Tailored study windows and disengagement alerts.
+### 🌟 Key AI Attendance Features
 
-### 👨‍🏫 3. Teacher & Parent Portals
-- **Teacher Dashboard**: Student roster risk alerts, class test submissions, assignment grading, and doubt resolution.
-- **Parent Portal**: Real-time bus tracking, AI parenting coach, and academic progress updates.
+1. **📷 Real-Time Live Webcam Scanner**:
+   - Integrated HTML5 video scanner running live frame capture at 30 FPS.
+   - Built-in pose guidance overlay instructing students through 10 multi-angle pose snapshots (*Center, Left, Right, Tilt Up, Tilt Down*).
+
+2. **🧠 Multi-Sample Centroid Vector DB (`VectorDB`)**:
+   - Computes normalized 128-dimensional facial feature vectors using OpenCV CLAHE lighting equalization and 4x4 spatial grid extraction.
+   - Indexes both multi-angle sample clusters and profile centroid vectors using Cosine Similarity Nearest-Neighbor search:
+     $$\text{Similarity Score} = \max_{v \in \text{samples}} \frac{q \cdot v}{\|q\| \|v\|}$$
+
+3. **🔒 Anti-Proxy Account Binding Security**:
+   - **Account Lock**: Once a face is registered under Account A, it is cryptographically locked to that student ID.
+   - **Cross-Account Fraud Prevention**: If Student 1 attempts to scan their face while logged into Account B, the system flags a **Security Alert** and blocks attendance marking.
+
+4. **⚡ Double-Registration Protection**:
+   - Prevents duplicate registrations. Registered students are immediately locked to verification mode.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🖼️ Application Screenshot Showcase
+
+### 1. 📸 Live AI Camera Scanner & Pose Registration
+![AI Attendance Live Camera Scanner](docs/images/ai_attendance_scanner.png)
+*Interactive live camera scanner capturing multi-angle pose snapshots for vector embedding indexing.*
+
+---
+
+### 2. 🔒 Registration Lock & Anti-Proxy Security Alert
+![Registration Lock & Security Prompt](docs/images/registration_lock.png)
+*Account binding lock ensuring one face profile per student account and blocking proxy scans.*
+
+---
+
+### 3. 📊 Student Dashboard Overview
+![Student Dashboard Overview](docs/images/student_dashboard.png)
+*Real-time Learning Health Index, Workload Pressure Radar, and AI Recommendations.*
+
+---
+
+### 4. 👤 Student Profile & Academic Progress
+![Student Profile & Progress](docs/images/student_profile.png)
+*Comprehensive student details, guardian info, and class performance tracking.*
+
+---
+
+## ✨ System Architecture
 
 ```
-                              ┌────────────────────────┐
-                              │  Next.js 16 Frontend   │
-                              │   (localhost:3000)     │
-                              └───────────┬────────────┘
-                                          │
-                    ┌─────────────────────┴─────────────────────┐
-                    ▼                                           ▼
-      ┌───────────────────────────┐               ┌───────────────────────────┐
-      │   EduPulse Backend API    │               │  Vision CV & Vector DB    │
-      │   FastAPI (localhost:8000)│               │  FastAPI (localhost:8001) │
-      └─────────────┬─────────────┘               └─────────────┬─────────────┘
-                    │                                           │
-                    ▼                                           ▼
-      ┌───────────────────────────┐               ┌───────────────────────────┐
-      │  SQLite / ADSA Data Engine│               │   VectorDB & SQLite Logs  │
-      └───────────────────────────┘               └───────────────────────────┘
+                               ┌────────────────────────┐
+                               │  Next.js 16 Frontend   │
+                               │   (localhost:3000)     │
+                               └───────────┬────────────┘
+                                           │
+                    ┌──────────────────────┴──────────────────────┐
+                    ▼                                             ▼
+      ┌───────────────────────────┐                 ┌───────────────────────────┐
+      │   EduPulse Backend API    │                 │  Vision CV & Vector DB    │
+      │   FastAPI (localhost:8000)│                 │  FastAPI (localhost:8001) │
+      └─────────────┬─────────────┘                 └─────────────┬─────────────┘
+                    │                                             │
+                    ▼                                             ▼
+      ┌───────────────────────────┐                 ┌───────────────────────────┐
+      │ Supabase PostgreSQL DB    │                 │ SQLite Vector Store       │
+      │ (Strict 'edupulse' Schema)│                 │ (face_vectors.json & DB)  │
+      └───────────────────────────┘                 └───────────────────────────┘
 ```
 
-| Component | Stack |
+| Component | Technology |
 |---|---|
-| **Frontend UI** | Next.js 16 (Turbopack, App Router), React 19, Tailwind CSS, Lucide Icons, Recharts |
-| **Backend API** | Python 3.10, FastAPI, Pydantic v2, SQLAlchemy, JWT Security |
-| **Vision & AI Engine** | PyTorch 2.5, OpenCV 4.13 (CLAHE, 4x4 Spatial Grid Extractors), InsightFace ArcFace |
-| **Vector Database** | Custom `VectorDB` Engine with Cosine Distance Nearest-Neighbor Search |
+| **Frontend UI** | Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS, Lucide Icons |
+| **Backend API** | Python 3.10, FastAPI, SQLAlchemy (Strict `edupulse` schema), Groq Cloud AI |
+| **Vision & AI Engine** | PyTorch 2.5, OpenCV 4.13 (CLAHE Equalization, Spatial Grid Feature Extraction) |
+| **Vector Database** | Dedicated `VectorDB` Engine with Cosine Distance Similarity Indexing |
 
 ---
 
@@ -66,23 +96,27 @@
 
 ```text
 EduPulse/
+├── docs/images/                # Documentation & Screenshot Assets
+│   ├── ai_attendance_scanner.png
+│   ├── registration_lock.png
+│   ├── student_dashboard.png
+│   └── student_profile.png
 ├── frontend/                   # Next.js 16 Web Frontend Application
 │   ├── app/                    # App Router Pages ((dashboard), student/attendance, etc.)
-│   ├── components/             # Reusable UI & Layout Components (Sidebar, Header, KPI Cards)
-│   └── lib/                    # API Clients & frozen constants
-├── backend/                    # FastAPI Main REST API Server
+│   ├── components/             # Reusable UI Components
+│   └── lib/                    # API Clients & Utilities
+├── backend/                    # FastAPI REST API Server
 │   ├── app/
-│   │   ├── auth/               # JWT Auth & Mock Database Resolvers
-│   │   ├── core/               # Database Engine & Security Config
+│   │   ├── auth/               # JWT Auth & Security
+│   │   ├── core/               # Database Engine (Supabase edupulse schema)
 │   │   └── modules/            # Student, Teacher, Parent, AI modules
-│   └── requirements.txt        # Python Backend Dependencies
-├── vision/                     # Standalone Computer Vision & Vector Database Service
-│   ├── vision/
-│   │   └── app/
-│   │       ├── ai/             # FaceService & Spatial Grid Feature Extractor
-│   │       ├── database/       # VectorDB & SQLite Attendance Logger
-│   │       └── main.py         # Vision FastAPI Entrypoint Server
-│   └── vector_store/           # Persistent JSON & SQLite Vector Storage
+│   └── run_backend.py          # Windows Selector Loop Backend Entrypoint
+├── vision/                     # Computer Vision & Vector Database Service
+│   ├── vision/app/
+│   │   ├── ai/                 # FaceService & Feature Extractors
+│   │   ├── database/           # VectorDB & SQLite Logger
+│   │   └── main.py             # Vision FastAPI Server
+│   └── vector_store/           # Persistent Vector JSON & SQLite Storage
 └── README.md                   # Project Documentation
 ```
 
@@ -90,20 +124,14 @@ EduPulse/
 
 ## 🚀 Quick Start Guide
 
-### Prerequisites
-- **Python 3.10+**
-- **Node.js 18+ & npm**
-
----
-
 ### Step 1: Install Dependencies
 
-#### 1. Backend & Vision Dependencies
+#### Backend & Vision Dependencies:
 ```bash
-pip install fastapi uvicorn torchvision torch opencv-python numpy aiosqlite python-jose passlib pillow
+pip install fastapi uvicorn torchvision torch opencv-python numpy aiosqlite psycopg[binary] python-jose passlib pillow
 ```
 
-#### 2. Frontend Dependencies
+#### Frontend Dependencies:
 ```bash
 cd frontend
 npm install
@@ -112,7 +140,21 @@ cd ..
 
 ---
 
-### Step 2: Configure Environment Files
+### Step 2: Environment Configuration
+
+Create `backend/.env`:
+```env
+APP_NAME=EduPulse
+APP_ENV=development
+DEBUG=true
+SECRET_KEY=edupulse_jwt_secret_key_super_secret_2026
+DATA_SOURCE=real
+USE_MOCK=false
+DATABASE_URL=postgresql://postgres:your_password@db.czteldsmpnmrukavctyc.supabase.co:5432/postgres?sslmode=require
+SUPABASE_URL=https://czteldsmpnmrukavctyc.supabase.co
+GROQ_API_KEY=your_groq_cloud_api_key_here
+GROQ_MODEL=llama-3.3-70b-versatile
+```
 
 Create `frontend/.env.local`:
 ```env
@@ -120,34 +162,24 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
 NEXT_PUBLIC_VISION_API_BASE_URL=http://localhost:8001
 ```
 
-Create `backend/.env`:
-```env
-APP_NAME=EduPulse
-APP_ENV=development
-DEBUG=true
-SECRET_KEY=edupulse-super-secret-jwt-key-2026-hackathon
-DATA_SOURCE=mock
-USE_MOCK=true
-DATABASE_URL=sqlite+aiosqlite:///./edupulse.db
-```
-
 ---
 
-### Step 3: Launch Services
+### Step 3: Launch All 3 Services
 
-Run the following 3 commands in separate terminal sessions:
+Run the following in 3 separate terminal sessions:
 
-#### Terminal 1: Vision CV Attendance & Vector DB Server
+#### Terminal 1: Vision CV & Vector DB Server (Port 8001)
 ```bash
 python -m uvicorn vision.app.main:app --port 8001 --host 0.0.0.0
 ```
 
-#### Terminal 2: EduPulse Backend API Server
+#### Terminal 2: EduPulse Backend API Server (Port 8000)
 ```bash
-python -m uvicorn app.main:app --port 8000 --host 0.0.0.0
+cd backend
+python run_backend.py
 ```
 
-#### Terminal 3: Next.js Frontend Application
+#### Terminal 3: Next.js Frontend (Port 3000)
 ```bash
 cd frontend
 npm run dev
@@ -165,7 +197,6 @@ All accounts use password: **`password`**
 | **Demo Student** | `demo_stu@gmail.com` | `password` |
 | **Teacher** | `david.miller@teacher.edupulse.edu` | `password` |
 | **Parent** | `sarah.b@parent.edupulse.edu` | `password` |
-| **Admin** | `admin@edupulse.edu` | `password` |
 
 ---
 
@@ -175,8 +206,3 @@ All accounts use password: **`password`**
 - 📸 **AI Attendance Page**: [http://localhost:3000/student/attendance](http://localhost:3000/student/attendance)
 - ⚙️ **Backend REST API**: [http://localhost:8000](http://localhost:8000)
 - 👁️ **Vision CV API**: [http://localhost:8001](http://localhost:8001)
-
----
-
-## 📜 License
-Developed for Hackathon 2026. All rights reserved.
