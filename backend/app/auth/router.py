@@ -94,6 +94,33 @@ MOCK_USERS = {
         "last_name": "Student",
         "role_id": 1,
         "is_active": True
+    },
+    "srihari": {
+        "id": 103,
+        "email": "srihari@edupulse.edu",
+        "password_hash": "$2b$12$4hnTUSjk8A2Uxc84RH6/qOS0xChC7CanIb4PpYoJr.v8fF1QC7xGS",
+        "first_name": "Srihari",
+        "last_name": "Student",
+        "role_id": 1,
+        "is_active": True
+    },
+    "srihari@edupulse.edu": {
+        "id": 103,
+        "email": "srihari@edupulse.edu",
+        "password_hash": "$2b$12$4hnTUSjk8A2Uxc84RH6/qOS0xChC7CanIb4PpYoJr.v8fF1QC7xGS",
+        "first_name": "Srihari",
+        "last_name": "Student",
+        "role_id": 1,
+        "is_active": True
+    },
+    "srihari@gmail.com": {
+        "id": 103,
+        "email": "srihari@edupulse.edu",
+        "password_hash": "$2b$12$4hnTUSjk8A2Uxc84RH6/qOS0xChC7CanIb4PpYoJr.v8fF1QC7xGS",
+        "first_name": "Srihari",
+        "last_name": "Student",
+        "role_id": 1,
+        "is_active": True
     }
 }
 
