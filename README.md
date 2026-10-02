@@ -45,22 +45,6 @@ Detects students who may be silently disengaging using AI by monitoring attendan
 
 ---
 
-## 🖼️ Screenshot Showcase
-
-### 1. 📸 Live AI Camera Scanner & Pose Registration
-![AI Attendance Live Camera Scanner](docs/images/ai_attendance_scanner.png)
-
-### 2. 🔒 Registration Lock & Anti-Proxy Security Alert
-![Registration Lock & Security Prompt](docs/images/registration_lock.png)
-
-### 3. 📊 Student Dashboard Overview
-![Student Dashboard Overview](docs/images/student_dashboard.png)
-
-### 4. 👤 Student Profile & Academic Progress
-![Student Profile & Progress](docs/images/student_profile.png)
-
----
-
 ## 👥 User Roles
 
 ### 👨‍🎓 Student
