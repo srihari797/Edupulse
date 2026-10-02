@@ -47,9 +47,29 @@ class StudentRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_student_timetable(self, user_id: int) -> List[Dict[str, Any]]:
+    @abstractmethod
+    async def get_learning_health(self, user_id: int) -> Dict[str, Any]:
         pass
 
+    @abstractmethod
+    async def get_workload_intelligence(self, user_id: int) -> Dict[str, Any]:
+        pass
+
+    @abstractmethod
+    async def get_student_resources(self, student_id: int) -> List[Dict[str, Any]]:
+        pass
+
+    @abstractmethod
+    async def create_student_doubt(self, user_id: int, teacher_id: int, subject_id: int, title: str, query: str) -> Dict[str, Any]:
+        pass
+
+    @abstractmethod
+    async def get_student_doubts(self, user_id: int) -> List[Dict[str, Any]]:
+        pass
+
+    @abstractmethod
+    async def get_student_faculty_options(self, user_id: int) -> List[Dict[str, Any]]:
+        pass
 
 
 class MockStudentRepository(StudentRepository):
@@ -135,10 +155,27 @@ class MockStudentRepository(StudentRepository):
         ]
 
     async def get_profile_by_user_id(self, user_id: int) -> Optional[Dict[str, Any]]:
+        if user_id not in self.mock_profiles:
+            self.mock_profiles[user_id] = {
+                "id": user_id,
+                "user_id": user_id,
+                "class_id": 10,
+                "roll_number": f"STU-2026-{user_id:03d}",
+                "date_of_birth": date(2010, 5, 15),
+                "gender": "Male",
+                "guardian_name": "Guardian User",
+                "guardian_phone": "+919876543210",
+                "first_name": "Srihari" if user_id == 103 else ("Demo" if user_id == 102 else f"Student #{user_id}"),
+                "last_name": "Student" if user_id in (103, 102) else "User",
+                "email": "srihari@edupulse.edu" if user_id == 103 else f"student{user_id}@edupulse.edu",
+                "created_at": datetime.now(),
+                "updated_at": datetime.now(),
+                "is_active": True
+            }
         return self.mock_profiles.get(user_id)
 
     async def update_profile(self, user_id: int, profile_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-        profile = self.mock_profiles.get(user_id)
+        profile = await self.get_profile_by_user_id(user_id)
         if not profile:
             return None
         
@@ -154,12 +191,12 @@ class MockStudentRepository(StudentRepository):
         return self.mock_dashboards.get(
             user_id,
             {
-                "academic_overview": {"gpa": 0.0, "rank": 0, "completed_credits": 0, "total_credits": 0},
-                "attendance": {"present_percentage": 0.0, "total_days": 0, "days_present": 0},
-                "workload": {"pending_assignments": 0, "due_this_week": 0, "completed_assignments": 0},
-                "learning_health": {"score": 0, "status": "Unknown", "weak_concepts_count": 0},
-                "growth_passport": {"holistic_score": 0, "badges_count": 0, "achievements_count": 0},
-                "notifications": {"unread_count": 0}
+                "academic_overview": {"gpa": 3.8, "rank": 5, "completed_credits": 45, "total_credits": 60},
+                "attendance": {"present_percentage": 94.5, "total_days": 90, "days_present": 85},
+                "workload": {"pending_assignments": 2, "due_this_week": 1, "completed_assignments": 12},
+                "learning_health": {"score": 88, "status": "Optimal", "weak_concepts_count": 1},
+                "growth_passport": {"holistic_score": 82, "badges_count": 5, "achievements_count": 4},
+                "notifications": {"unread_count": 1}
             }
         )
 
@@ -182,13 +219,218 @@ class MockStudentRepository(StudentRepository):
         return self.mock_opportunities
 
     async def get_student_assignments(self, student_id: int) -> List[Dict[str, Any]]:
-        raise NotImplementedError("Assignment operations are not supported in Mock mode. Please enable DB mode.")
+        return [
+            {
+                "id": 1,
+                "teacher_id": 3,
+                "subject_id": 1,
+                "class_id": 10,
+                "subject_name": "Mathematics",
+                "teacher_name": "David Miller",
+                "title": "Algebra Quadratic Functions Quiz",
+                "description": "Complete practice set 4B on quadratic equations.",
+                "instructions": "Show all calculation steps clearly.",
+                "max_marks": 50,
+                "is_graded": True,
+                "has_deadline": True,
+                "due_date": "2026-10-05T23:59:00",
+                "status": "Published",
+                "published_at": "2026-09-28T09:00:00",
+                "attachment_bucket": None,
+                "attachment_path": None,
+                "created_at": "2026-09-28T09:00:00"
+            }
+        ]
 
     async def submit_assignment(self, student_id: int, assignment_id: int, file_bucket: str, file_path: str) -> Dict[str, Any]:
-        raise NotImplementedError("Assignment operations are not supported in Mock mode. Please enable DB mode.")
+        return {
+            "id": 1,
+            "assignment_id": assignment_id,
+            "student_id": student_id,
+            "status": "Submitted",
+            "submitted_at": str(datetime.now()),
+            "score": None,
+            "feedback": None,
+            "file_bucket": file_bucket,
+            "file_path": file_path,
+            "created_at": str(datetime.now())
+        }
 
     async def get_student_submission(self, student_id: int, assignment_id: int) -> Optional[Dict[str, Any]]:
-        raise NotImplementedError("Assignment operations are not supported in Mock mode. Please enable DB mode.")
+        return {
+            "id": 1,
+            "assignment_id": assignment_id,
+            "student_id": student_id,
+            "status": "Submitted",
+            "submitted_at": "2026-09-30T10:00:00",
+            "score": 90.0,
+            "feedback": "Great job!",
+            "file_bucket": "edupulse-submissions",
+            "file_path": "submission_1.pdf",
+            "created_at": "2026-09-30T10:00:00"
+        }
+
+    async def get_learning_health(self, user_id: int) -> Dict[str, Any]:
+        return {
+            "score": 88,
+            "status": "Optimal",
+            "completion_rate": 92.0,
+            "overall_score": 88.0,
+            "student_name": "Srihari Student" if user_id == 103 else f"Student #{user_id}",
+            "roll_number": f"STU-2026-{user_id:03d}",
+            "weak_concepts_count": 1,
+            "lhi_trend": [
+                {"week": "Week 1", "score": 82},
+                {"week": "Week 2", "score": 85},
+                {"week": "Week 3", "score": 87},
+                {"week": "Week 4", "score": 88},
+            ],
+            "diagnostic_summary": "Learning Health score is 88/100 (Optimal). High assignment completion rate with strong mastery in Mathematics and Science."
+        }
+
+    async def get_workload_intelligence(self, user_id: int) -> Dict[str, Any]:
+        return {
+            "active_work": [
+                {
+                    "id": 1,
+                    "subject_name": "Mathematics",
+                    "teacher_name": "David Miller",
+                    "title": "Algebra Quadratic Functions Quiz",
+                    "description": "Complete practice set 4B on quadratic equations.",
+                    "due_date": "2026-10-05T23:59:00",
+                    "due_date_clean": "2026-10-05",
+                    "max_marks": 50,
+                    "is_graded": True,
+                    "priority": "High",
+                    "status": "Pending",
+                    "score": None,
+                    "feedback": None
+                },
+                {
+                    "id": 2,
+                    "subject_name": "Science",
+                    "teacher_name": "Anita Sharma",
+                    "title": "Physics Optics Lab Report",
+                    "description": "Submit refraction experiment observations.",
+                    "due_date": "2026-10-06T23:59:00",
+                    "due_date_clean": "2026-10-06",
+                    "max_marks": 25,
+                    "is_graded": True,
+                    "priority": "Moderate",
+                    "status": "Pending",
+                    "score": None,
+                    "feedback": None
+                }
+            ],
+            "past_work": [
+                {
+                    "id": 3,
+                    "subject_name": "English",
+                    "teacher_name": "Sarah Connor",
+                    "title": "Essay on Modern Literature",
+                    "description": "Analytical essay on 20th century poetry.",
+                    "due_date": "2026-09-28T23:59:00",
+                    "due_date_clean": "2026-09-28",
+                    "max_marks": 100,
+                    "is_graded": True,
+                    "priority": "High",
+                    "status": "Graded",
+                    "score": 92.0,
+                    "feedback": "Excellent structure and literary analysis."
+                }
+            ],
+            "teacher_contributions": [
+                {
+                    "teacher_name": "David Miller",
+                    "subject_name": "Mathematics",
+                    "item_count": 1,
+                    "items": [{"title": "Algebra Quadratic Functions Quiz", "subject": "Mathematics", "date": "2026-10-05"}]
+                },
+                {
+                    "teacher_name": "Anita Sharma",
+                    "subject_name": "Science",
+                    "item_count": 1,
+                    "items": [{"title": "Physics Optics Lab Report", "subject": "Science", "date": "2026-10-06"}]
+                }
+            ],
+            "conflict_alerts": []
+        }
+
+    async def get_student_resources(self, student_id: int) -> List[Dict[str, Any]]:
+        return [
+            {
+                "id": 1,
+                "teacher_id": 3,
+                "subject_id": 1,
+                "subject_name": "Mathematics",
+                "teacher_name": "David Miller",
+                "title": "Quadratic Equations Formula Sheet & Practice",
+                "description": "Comprehensive reference guide covering factoring, completing the square, and quadratic formulas.",
+                "resource_type": "Document",
+                "file_bucket": "edupulse-resources",
+                "file_path": "math/quadratic_equations.pdf",
+                "created_at": "2026-09-25"
+            }
+        ]
+
+    async def create_student_doubt(self, user_id: int, teacher_id: int, subject_id: int, title: str, query: str) -> Dict[str, Any]:
+        if not hasattr(self, "mock_doubts"):
+            self.mock_doubts = []
+        new_id = len(self.mock_doubts) + 1
+        doubt = {
+            "id": new_id,
+            "student_id": user_id,
+            "teacher_id": teacher_id,
+            "subject_id": subject_id,
+            "subject_name": "Mathematics" if subject_id == 1 else "Science",
+            "teacher_name": "David Miller" if teacher_id == 3 else "Faculty Teacher",
+            "title": title,
+            "query": query,
+            "response": f"🤖 [AI Preliminary Hint]: Key concept guidance for '{title}'. Refer to class lecture notes.",
+            "status": "Pending",
+            "created_at": str(date.today()),
+            "updated_at": str(date.today())
+        }
+        self.mock_doubts.append(doubt)
+        return doubt
+
+    async def get_student_doubts(self, user_id: int) -> List[Dict[str, Any]]:
+        if not hasattr(self, "mock_doubts"):
+            self.mock_doubts = [
+                {
+                    "id": 1,
+                    "student_id": user_id,
+                    "teacher_id": 3,
+                    "subject_id": 1,
+                    "subject_name": "Mathematics",
+                    "teacher_name": "David Miller",
+                    "title": "Quadratic Formula Discriminant",
+                    "query": "Why does a negative discriminant imply non-real complex roots?",
+                    "response": "🤖 [AI Preliminary Hint]: When b² - 4ac < 0, taking the square root requires imaginary numbers (i = √-1), producing conjugate complex root pairs.",
+                    "status": "Answered",
+                    "created_at": "2026-09-30",
+                    "updated_at": "2026-09-30"
+                }
+            ]
+        return self.mock_doubts
+
+    async def get_student_faculty_options(self, user_id: int) -> List[Dict[str, Any]]:
+        return [
+            {
+                "teacher_id": 3,
+                "teacher_name": "David Miller",
+                "subject_id": 1,
+                "subject_name": "Mathematics",
+                "department": "Mathematics & Science"
+            },
+            {
+                "teacher_id": 2,
+                "teacher_name": "Anita Sharma",
+                "subject_id": 2,
+                "subject_name": "Science",
+                "department": "Science"
+            }
+        ]
 
     async def get_student_timetable(self, user_id: int) -> List[Dict[str, Any]]:
         return [
