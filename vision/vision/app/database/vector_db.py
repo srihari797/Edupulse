@@ -48,6 +48,20 @@ class VectorDB:
         """
         )
 
+        # Auto-migrate missing columns for existing SQLite tables
+        cursor.execute("PRAGMA table_info(face_vectors)")
+        existing_cols = [col[1] for col in cursor.fetchall()]
+        if "samples_json" not in existing_cols:
+            try:
+                cursor.execute("ALTER TABLE face_vectors ADD COLUMN samples_json TEXT")
+            except Exception as e:
+                print(f"[VectorDB Migration] samples_json col error: {e}")
+        if "sample_count" not in existing_cols:
+            try:
+                cursor.execute("ALTER TABLE face_vectors ADD COLUMN sample_count INTEGER DEFAULT 1")
+            except Exception as e:
+                print(f"[VectorDB Migration] sample_count col error: {e}")
+
         # Table: Attendance Records
         cursor.execute(
             """

@@ -155,6 +155,8 @@ async def register_student_face_base64(req: Base64RegisterRequest):
             "data": reg_result,
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -290,6 +292,8 @@ async def mark_attendance_base64(req: Base64MarkRequest):
             "attendance": att_res,
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()
