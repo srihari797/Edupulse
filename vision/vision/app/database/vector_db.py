@@ -15,11 +15,19 @@ class VectorDB:
 
     def __init__(
         self,
-        vector_store_path: str = "vision/vector_store/face_vectors.json",
-        db_path: str = "vision/vector_store/attendance.db",
+        vector_store_path: Optional[str] = None,
+        db_path: Optional[str] = None,
     ):
-        self.vector_store_path = vector_store_path
-        self.db_path = db_path
+        self.vector_store_path = (
+            vector_store_path
+            or os.getenv("VECTOR_STORE_PATH")
+            or "vision/vector_store/face_vectors.json"
+        )
+        self.db_path = (
+            db_path
+            or os.getenv("ATTENDANCE_DB_PATH")
+            or "vision/vector_store/attendance.db"
+        )
 
         # Ensure directory exists
         os.makedirs(os.path.dirname(self.vector_store_path), exist_ok=True)

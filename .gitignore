@@ -161,6 +161,10 @@ docs/
 !docs/images/*
 test reports/
 *.txt
+!requirements.txt
+!*/requirements.txt
+!requirements*.txt
+!*/requirements*.txt
 admin_part_real-time_integration_fixes.md
 
 # Agent/AI tool config files (not relevant to other developers)
@@ -173,6 +177,7 @@ CLAUDE.md
 # !README.md
 *.md
 !README.md
+!DEPLOYMENT.md
 
 
 # ============================================================

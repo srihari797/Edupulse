@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   // Allow images from backend (both local dev and deployed Render backend)
   images: {
     remotePatterns: [
